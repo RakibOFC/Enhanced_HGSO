@@ -88,11 +88,9 @@ class Butterfly(Algorithms):
 
         r = np.random.rand()
         if r < self.p:
-            updated_agent = self.current_agent + (np.sqaure(r) * self.local_optimum_agent - self.current_agent) * \
-                            self.fragrance
+            updated_agent = self.current_agent + (np.square(r) * self.local_optimum_agent - self.current_agent) # * self.fragrance
         else:
-            updated_agent = self.current_agent + (np.square(r) * self.random_agent_j - self.random_agent_k) * \
-                            self.fragrance
+            updated_agent = self.current_agent + (np.square(r) * self.random_agent_j - self.random_agent_k) # * self.fragrance
         return updated_agent
 
     def update_algorithm_state(self, iteration):
@@ -114,6 +112,7 @@ class SineCos(Algorithms):
         if self.current_agent is None or self.local_optimum_agent is None or self.global_optimum_agent is None:
             raise ValueError("Population, local optimum and global optimum must be set before running the algorithm")
 
+        print(f"\nself.r4: {self.r4}\n")
         if self.r4 < 0.5:
             updated_agent = self.current_agent + self.r1 * np.sin(self.r2) * np.abs(self.r3 * self.global_optimum_agent
                                                                                     - self.current_agent)
@@ -123,7 +122,7 @@ class SineCos(Algorithms):
         return updated_agent
 
     def update_algorithm_state(self, iteration):
-        r1 = self.a - self.a * (iteration / self.max_iter)
-        r2 = 2 * np.pi * np.random.rand()
-        r3 = np.random.rand()
-        r4 = np.random.rand()
+        self.r1 = self.a - self.a * (iteration / self.max_iter)
+        self.r2 = 2 * np.pi * np.random.rand()
+        self.r3 = np.random.rand()
+        self.r4 = np.random.rand()

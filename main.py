@@ -25,22 +25,23 @@ print(f"population:\n{populations}\n")
 eval_value = population.eval_value
 
 # Initialize algorithm
-jaya = Jaya(dimension, max_iter)
+algo = SineCos("SineCos", dimension, max_iter)
 
 for iter in range(max_iter):
 
     current_agent = populations[iter]
+    algo.update_algorithm_state(iter)
 
-    jaya.set_agents(current_agent, populations[np.argmin(np.min(eval_value))], populations[np.argmax(np.max(eval_value))], 
+    algo.set_agents(current_agent, populations[np.argmin(np.min(eval_value))], populations[np.argmax(np.max(eval_value))], 
                     populations[np.argmin(np.min(eval_value))])
 
-    updated_pop = jaya.step(iter)
+    updated_pop = algo.step(iter)
 
     updated_eval_value = population.updated_eval(updated_pop)
 
     print(f"\n=================================================================\nNumber of iteration: {iter}\n=================================================================")
-    print(f"jaya ==>> current_agent: {current_agent}\n")
-    print(f"jaya ==>> updated_egent: {updated_pop}")
+    print(f"algo ==>> current_agent: {current_agent}\n")
+    print(f"algo ==>> updated_egent: {updated_pop}")
 
     '''
     # Random Print
