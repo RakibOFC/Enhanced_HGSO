@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 # from Optimizers.Population import Population
 import numpy as np
 
-
 class Algorithms(ABC):
     local_optimum_agent = None
     local_worst_agent = None
@@ -34,9 +33,6 @@ class Algorithms(ABC):
         self.local_worst_agent = local_worst_agent
         self.global_optimum_agent = global_optimum_agent
 
-
-
-
 class Jaya(Algorithms):
 
     def __init__(self, dimension, max_iter):
@@ -48,9 +44,15 @@ class Jaya(Algorithms):
 
         r0 = np.random.rand(self.dimension)
         r1 = np.random.rand(self.dimension)
+        # print(f"\nr0: {r0}, r1: {r1}\n")
+        '''
         updated_population = self.current_agent + r0 * (
                 self.global_optimum_agent - np.abs(2 * self.current_agent - self.local_optimum_agent)) - r1 * (
                                      self.local_optimum_agent - self.current_agent)
+                                     '''
+        updated_population = self.current_agent + r0 * (
+                self.global_optimum_agent - np.abs(self.current_agent)) - r1 * (self.local_worst_agent - np.abs(self.current_agent))
+
         return updated_population
 
     def update_algorithm_state(self, iteration):

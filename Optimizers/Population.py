@@ -11,7 +11,7 @@ class Population:
         self.upper_bound = upper_bound
         self.dimension = dimension
         self.population = None
-        print(objective_function)
+        # print(objective_function)
         self._obj = objective_function
 
     def initialize(self, initializer="uniform"):
@@ -24,7 +24,7 @@ class Population:
 
     @property
     def population(self):
-        print("getter of population is called")
+        # print("getter of population is called")
         return self._population
 
     @population.setter
@@ -38,12 +38,14 @@ class Population:
             self.eval_value = None
 
         if self._obj is not None and self._population is not None:
-            print("objective function is not None")
+            # print("objective function is not None")
             temp = np.empty(self.size)
             for i, agent in enumerate(self.population):
                 temp[i] = self._obj(agent)
             self.eval_value = temp
 
+    def updated_eval(self, temp):
+        return self._obj(temp)
 
 if __name__ == "__main__":
 
